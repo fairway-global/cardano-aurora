@@ -1,184 +1,178 @@
-# Aurora — Metadata Standard & Indexer for Cardano Credit Markets
+# Aurora Metadata Standard and Discovery Engine
 
-> **An open-source identity and compliance layer for P2P credit markets on Cardano.**
->
-> Attach zero-knowledge identity proofs, verification status, and compliance metadata to credit market UTxOs — then discover, filter, and monitor lending opportunities through an open indexer API.
+> Open, protocol-independent infrastructure for discovering, filtering, verifying, and evaluating Cardano credit opportunities.
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/status-proposal--aligned-lightgrey.svg)](#status)
 
----
+Aurora is a shared market layer around compatible Cardano lending implementations. It standardizes how credit opportunities and verification references are described, indexes that information through the Aurora Discovery Engine, and exposes open interfaces for applications and capital providers.
 
-## Aurora & Maleda
+Aurora does not replace lending protocols or control lending activity. The Treasury-funded scope is limited to reusable public infrastructure.
 
-This project has two layers with different scopes and licensing:
+## Proposal Alignment
 
-| | Aurora | Maleda |
-| :--- | :--- | :--- |
-| **What** | On-chain infrastructure: metadata standard, off-chain indexer, ZK proof generation, connection to BTC/stablecoin liquidity | Off-chain business services: SACCO onboarding, local fiat payments, legal & operational frameworks, last-mile lending operations |
-| **License** | Open source (Apache 2.0) | Closed source (Fairway proprietary) |
-| **Where** | **This repository** | Separate, private |
+This repository is the primary implementation home for technical outputs defined in [Aurora Treasury Proposal Version 2](https://github.com/fairway-global/aurora-proposal).
 
-**Aurora** is the open Cardano protocol layer — the metadata standard, indexer, and verification infrastructure that any credit market participant can use, extend, or self-host.
+| Field | Detail |
+| --- | --- |
+| Treasury request | **1,000,000 ADA** |
+| Delivery period | Approximately **5 months** |
+| Delivery plan | **4 implementation milestones** |
+| Lead implementer | **Fairway** |
+| Technical collaborator | **Sundial** |
+| Technical advisor | **Fallen Icarus (Rusty)** |
+| Treasury custody | Independent **3-of-5 Aurora Treasury multisignature** |
+| License | **Apache License 2.0** |
 
-**Maleda** is Fairway's Ethiopian commercial service built on top of Aurora, handling the operational realities of connecting real-world lending institutions (SACCOs, MFIs, banks) to Cardano credit markets: onboarding, compliance, fiat settlement, and loan servicing coordination.
+## Scope
 
-Through Aurora, institutions connect to Cardano's open credit markets. Through Maleda, Fairway handles the last mile.
+### Included
 
----
+- Versioned **Metadata Standard** for Aurora-compatible credit opportunities and associated metadata references.
+- Extensible **Verification Framework** for institutional, eligibility, compliance, and other proof-based information.
+- Open-source **Aurora Discovery Engine** for indexing, discovery, filtering, verification-information exposure, and relevant lifecycle visibility.
+- **Open APIs** for compatible applications, analytics services, and capital providers.
+- Published filtering and query capabilities based on open schemas.
+- **Capital Provider Profile Standard**, **Discovery and Filtering Specification**, and **Reference Query Library**.
+- Developer tooling, reference implementation, integration examples, and operating documentation.
+- An end-to-end testnet technical demonstration.
+- Independent security and legal review of the funded infrastructure.
 
-## What this repository contains
+### Excluded
 
-This is the home for two open-source components described in the **Aurora** Cardano Treasury proposal:
+Aurora does not:
 
-| Component | Purpose |
-| :--- | :--- |
-| **Metadata standard** | A versioned schema for attaching identity proofs, verification status, and loan-level compliance information to credit market UTxOs as transaction metadata. Designed to be extensible and support additional trust and verification use cases over time. |
-| **Off-chain indexer** | A service that reads credit market UTxOs on Cardano, verifies attached proofs, tracks loan lifecycles (origination → funding → repayment → closure), and exposes a query API for discovery and filtering. Can be run locally to avoid dependence on any third-party API. |
+- originate or underwrite loans;
+- custody or allocate lending capital;
+- decide which opportunities receive funding;
+- operate a proprietary lending marketplace;
+- fund borrower deployment or commercial onboarding;
+- convert ADA or stablecoins;
+- perform fiat settlement, borrower disbursement, loan servicing, or collections; or
+- require a specific lending protocol, identity provider, verification technology, settlement provider, or commercial deployment model.
 
-Both components are designed to work with Cardano's eUTxO model and align with [CIP-89 (Beacon Tokens)](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0089) for distributed dApp discovery without centralized infrastructure.
+Commercial lending and the activity that generates real repayment, default, and underwriting evidence remain outside the Treasury-funded scope.
 
-The infrastructure is designed to integrate with [Pogun's credit market](https://pogun.io) and other compatible Cardano lending implementations, while remaining independent of any single protocol or production deployment.
+## Architecture
 
-## Why metadata instead of smart-contract logic?
+Aurora operates around compatible lending infrastructure without modifying its core lending contracts.
 
-The standard uses transaction metadata rather than embedding identity checks inside lending validators. This is a deliberate architectural choice:
-
-- **Efficiency.** No additional on-chain computation or script execution costs. Identity metadata is attached alongside existing lending transactions.
-- **Flexibility.** The standard is extensible — new proof types (ZK proofs via Midnight, additional credential frameworks) can be added without modifying lending contracts.
-- **Permissionlessness.** Lending contracts remain open. The metadata layer is an *opt-in* extension that enables compliant participation without restricting the underlying protocol.
-
-## How it works
-
-```
-1. Origination       A verified lending institution publishes a Loan Request UTxO
-                     through a compatible Cardano credit market implementation,
-                     with verification metadata attached (ZK credential proof,
-                     verification status, compliance references).
-
-2. Indexing          The off-chain indexer monitors the chain for credit market
-                     UTxOs via beacon tokens (CIP-89), verifies attached proofs,
-                     and makes the opportunity queryable.
-
-3. Discovery         Capital providers query the indexer to find lending
-                     opportunities, filtering by jurisdiction, verification
-                     status, or other metadata attributes.
-
-4. Funding           Eligible capital is deployed into verified lending
-                     opportunities through the credit market infrastructure.
-
-5. Repayment         As loans are repaid, repayment history is trustlessly
-                     associated with the originating entity and its verification
-                     credentials — building toward privacy-preserving reputation
-                     systems and on-chain credit histories over time.
-
-6. Settlement        Regulated settlement infrastructure (initially Encryptus)
-                     supports conversion between Cardano-native stable assets
-                     and local fiat currencies for last-mile disbursement.
+```mermaid
+flowchart LR
+    A["Compatible lending implementation"] --> B["Loan Request UTxO"]
+    B --> C["Standardized metadata and verification references"]
+    V["Verification providers and proof systems"] --> C
+    C --> D["Aurora Discovery Engine"]
+    D --> E["Open discovery and filtering APIs"]
+    P["Capital-provider profiles and reference queries"] --> E
+    E --> F["Applications and capital providers"]
 ```
 
-## Repository structure (planned)
+### Processing Flow
 
+1. **Origination.** An originator creates a Loan Request UTxO through a compatible Cardano lending implementation.
+2. **Metadata.** The originator may attach standardized market information and verification references. The proposal describes an enriched object as a "colored" Loan Request UTxO; this is a descriptive term, not a new ledger primitive.
+3. **Indexing and verification.** The Aurora Discovery Engine identifies compatible UTxOs, organizes their metadata, and exposes relevant verification information.
+4. **Discovery and evaluation.** Applications and capital providers query and filter opportunities according to their own requirements.
+5. **Lifecycle visibility.** Aurora indexes relevant lifecycle information made available by compatible lending implementations, including on-chain repayment events where available.
+6. **Funding and settlement.** Capital allocation, loan execution, settlement, and servicing remain with the underlying lending infrastructure and relevant market participants.
+
+Aurora exposes information for evaluation but does not make lending, underwriting, compliance, or capital-allocation decisions.
+
+## Design Principles
+
+- **Protocol independent.** Compatible lending implementations can use Aurora without adopting a single lending protocol.
+- **Optional.** Underlying lending contracts remain independently usable without Aurora metadata.
+- **Technology agnostic.** The Verification Framework does not require one identity provider, credential issuer, proof system, or verification provider.
+- **Privacy compatible.** Proofs, attestations, selective disclosure, and other verification references can be used without placing sensitive source data on Cardano.
+- **Extensible.** Versioned schemas support evolving market information, verification methods, jurisdictions, and participant requirements.
+- **Independently operable.** Public source, deployment instructions, and open interfaces allow third parties to operate the infrastructure without a Fairway-hosted service.
+- **Decision neutral.** Participants retain responsibility for their own legal, regulatory, eligibility, risk, and allocation requirements.
+
+## Planned Repository Structure
+
+```text
+.
+|-- specifications/
+|   |-- metadata-standard/
+|   |-- verification-framework/
+|   |-- capital-provider-profile/
+|   `-- discovery-and-filtering/
+|-- discovery-engine/
+|   |-- src/
+|   |-- api/
+|   `-- deployment/
+|-- reference-query-library/
+|-- developer-tooling/
+|-- reference-implementation/
+|-- examples/
+|-- demo/
+|-- docs/
+|-- LICENSE
+`-- README.md
 ```
-aurora-metadata-standard-and-indexer/
-├── standard/
-│   ├── spec/                  # Metadata schema specification (versioned)
-│   │   ├── v1.0/
-│   │   │   ├── schema.cddl    # CDDL definition for on-chain metadata
-│   │   │   └── spec.md        # Human-readable specification document
-│   │   └── examples/          # Example metadata payloads
-│   └── aiken/                 # Reference helpers for metadata construction
-│
-├── indexer/
-│   ├── src/                   # Indexer service source
-│   │   ├── chain/             # Chain sync (CIP-89 beacon detection)
-│   │   ├── verify/            # ZK proof verification logic
-│   │   ├── lifecycle/         # Loan state tracking
-│   │   └── api/               # Query & discovery API (REST)
-│   ├── Dockerfile             # Self-hostable — no third-party dependency
-│   └── README.md              # Indexer setup and operation guide
-│
-├── docs/
-│   ├── integration-guide.md   # For originators and capital providers
-│   ├── architecture.md        # System design and data flow
-│   └── trust-framework.md     # Verification principles and ZK approach
-│
-├── pilot/
-│   └── dashboard/             # Lightweight dRep monitoring dashboard
-│
-├── LICENSE                    # Apache 2.0
-└── README.md                  # This file
-```
 
-## Technical foundations
+The structure may evolve during M1 architecture work. Any change must preserve the approved public deliverables, protocol independence, and third-party operability.
 
-- **Cardano eUTxO model** — each loan is a discrete, auditable on-chain object.
-- **[CIP-89](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0089) Beacon Tokens** — distributed discovery of credit market UTxOs without centralized registries. Designed by Fallen Icarus.
-- **CIP-20 Transaction Metadata** — standard label for human-readable transaction messages.
-- **Zero-knowledge proofs** — ZK proofs derived from verifiable credentials, enabling verification without exposing underlying identity data.
-- **USDM** — regulated Cardano-native stablecoin for settlement.
-- **Midnight** (future integration) — ZK proof infrastructure for enhanced on-chain credential verification.
+## Technical Demonstration
 
-## Verification and trust framework
+The testnet demonstration will show that a compatible Loan Request UTxO can be:
 
-The metadata layer follows four design principles:
+1. created through compatible lending infrastructure;
+2. enriched with standardized metadata;
+3. identified and indexed by the Aurora Discovery Engine;
+4. discovered through an open API;
+5. filtered according to published criteria;
+6. associated with verification information that can be evaluated through the Verification Framework; and
+7. consumed by a compatible reference application or query workflow.
 
-1. **Technology agnostic.** The framework supports multiple credential and proof systems — not locked to any single identity provider.
-2. **Proof-based.** Verification relies on cryptographic proofs, not trusted assertions. Third parties can independently verify without accessing underlying data.
-3. **Privacy-preserving.** No personal or borrower data is stored on-chain. Only proofs, commitments, and verification status.
-4. **Open participation.** Lending contracts remain fully permissionless. The metadata layer is opt-in — it enables compliant participation without gatekeeping the protocol.
+The demonstration validates infrastructure integration. It does not use Treasury-funded loan capital and does not require borrower deployment, fiat settlement, or commercial loan execution.
 
-## Pilot context
+## Milestone Roadmap
 
-The infrastructure is validated through a Treasury-backed pilot with Ethiopian Savings and Credit Cooperative Organizations (SACCOs). A dedicated ADA allocation reserved for pilot lending liquidity is converted into USDM and deployed through progressive lending rounds into verified opportunities originated by participating SACCOs.
+| Milestone | Timeline | ADA allocation | Primary outcome |
+| --- | --- | ---: | --- |
+| **M1: Specifications and Architecture** | Month 1 | **150,000** | Core standards and implementation architecture finalized |
+| **M2: Core Build** | Months 2-3 | **350,000** | Discovery, verification, indexing, filtering, and API infrastructure operational on testnet |
+| **M3: Integration and Technical Demonstration** | Month 4 | **300,000** | Reference implementation, developer tooling, and complete testnet workflow demonstrated |
+| **M4: Independent Review and Public Release** | Month 5 | **200,000** | Independent review completed and final open-source infrastructure released |
+| **Total** | **Approximately 5 months** | **1,000,000** | |
 
-SACCOs retain full responsibility for borrower onboarding, underwriting, local compliance, disbursement, collections, and recovery. Loan metadata, verification status, funding events, and repayment history are recorded on-chain — creating transparent, verifiable lending activity and the first on-chain institutional credit histories on Cardano.
+Public milestone evidence and progress reports will link to the relevant specifications, source code, APIs, tooling, documentation, demonstrations, and review materials.
 
-Pilot liquidity is administered independently from the project operating budget by Independent Pilot Trustees operating under a 2-of-3 multisignature custody arrangement.
+## Delivery Roles
 
-## Consortium
+| Participant | Responsibility |
+| --- | --- |
+| **Fairway** | Lead implementation, integration, standards development, engineering, documentation, testing, external reviews, milestone evidence, and public reporting |
+| **Sundial** | Selected technical contributions to capital-provider standards, discovery and filtering specifications, reference queries, API design, integration examples, and interoperability |
+| **Fallen Icarus (Rusty)** | Technical advice and architectural review related to transaction-based credit markets, Loan Request UTxO design, and eUTxO-specific implementation considerations |
 
-| Partner | Role |
-| :--- | :--- |
-| **[Fairway](https://fairway.global)** | Metadata standard development, off-chain indexer implementation, verification infrastructure, SACCO onboarding, pilot execution, reporting, and ecosystem coordination. |
-| **Fallen Icarus** | Credit market architecture, UTxO lending design review, metadata framework review, CIP-89 alignment, and technical oversight. Architect of cardano-loans and the metadata-based ZK approach this proposal implements. |
-| **Sundial** | Capital provider engagement, market design, institutional onboarding requirements, and future capital formation frameworks for stablecoin, institutional, and Bitcoin-backed participants. |
+These roles form one integrated Aurora implementation. They do not create separate Treasury budgets, custody arrangements, governance tracks, or ownership rights over the funded public outputs.
 
-### Pilot service providers
+## Treasury Governance
 
-| Provider | Role |
-| :--- | :--- |
-| **Independent Pilot Trustees** | 2-of-3 multisignature custody of Treasury pilot liquidity. Convert ADA to stable assets, manage capital deployments and repayments, return remaining principal with Treasury-entitled proceeds at pilot conclusion. |
-| **Encryptus** | Initial regulated settlement partner. Cross-border settlement infrastructure connecting Cardano-native stable assets with local banking rails. |
+The full Treasury allocation is held in one dedicated **3-of-5 Aurora Treasury multisignature**, with all five keys held independently of implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors hold no Treasury signing keys.
 
-## Milestone roadmap
+Further expenditure is conditioned on published milestone evidence and review against the approved completion criteria. Treasury balances and transactions remain publicly auditable. Unspent ADA is returned to the Cardano Treasury if the project terminates under the proposal's conditions.
 
-| Milestone | Timeline | Key deliverables |
-| :--- | :--- | :--- |
-| **M1** — Specification & design | Month 1 | Metadata spec published for community review; indexer architecture document; confirmed SACCO cohort with signed partnership agreements; pilot operating model. |
-| **M2** — Infrastructure delivery | Months 2–3 | Working indexer on testnet; metadata standard validated against Pogun's credit market architecture (with compatibility for alternative implementations); developer documentation; settlement workflow validated end-to-end. |
-| **M3** — Pilot round 1 | Months 4–5 | First pilot liquidity deployment into live contracts with verified SACCOs; mainnet infrastructure; dRep monitoring dashboard; first public progress report. |
-| **M4** — Pilot round 2 & market validation | Months 6–8 | Recycled capital deployment; infrastructure improvements from operational feedback; capital provider engagement; assessment of granular lending models. |
-| **M5** — Pilot round 3, capital readiness & handover | Months 9–12 | Final pilot round; public pilot case study; capital provider readiness framework; ecosystem handover documentation; remaining Treasury principal returned. |
-
-## Open ecosystem commitment
-
-All infrastructure, standards, and implementation learnings developed through this project will be open source and available for the broader Cardano ecosystem to adopt, extend, and integrate.
-
-The project introduces an optional metadata, verification, and discovery layer that complements existing lending protocols — including Pogun — while preserving open participation and avoiding liquidity fragmentation. Should Pogun's production deployment be delayed or unavailable, the consortium may utilize equivalent audited lending contracts or compatible partner infrastructure while preserving the same metadata standard, indexer architecture, and credit market model.
+Governance details, expenditure ceilings, remediation conditions, and submission requirements are maintained in the [Aurora proposal repository](https://github.com/fairway-global/aurora-proposal).
 
 ## Status
 
-🟡 **Pre-development.** This repository is a placeholder accompanying the Aurora Cardano Treasury proposal submission. Development begins upon proposal approval, following the milestone schedule above. The specification, indexer source, documentation, and pilot tooling will be published here as open-source deliverables.
+**Proposal-aligned planning.** This repository currently contains the implementation brief for Aurora Treasury Proposal Version 2. Specifications, source code, reference tooling, documentation, and demonstration artifacts will be published against the approved milestone schedule.
 
 ## License
 
-This project will be released under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+Unless stated otherwise, this repository is licensed under the [Apache License 2.0](LICENSE). Treasury-funded software, standards, and reference implementations may be used, operated, modified, extended, and commercialized in accordance with that license.
 
 ## Links
 
-- [Fairway](https://fairway.global) · [Maleda](https://maleda.fairway.global)
-- Aurora Treasury Proposal — *link to be added upon governance submission*
+- [Aurora Treasury Proposal](https://github.com/fairway-global/aurora-proposal)
+- [Full Proposal](https://github.com/fairway-global/aurora-proposal/blob/main/proposal.md)
+- [Reviewer Brief](https://github.com/fairway-global/aurora-proposal/blob/main/docs/00-reviewer-brief.md)
+- [Fairway](https://fairway.global)
 
 ---
 
-<sub>Built by [Fairway Oy](https://fairway.global) (Helsinki, Finland) in consortium with Fallen Icarus and Sundial Protocol.</sub>
+Built by [Fairway Oy](https://fairway.global) with technical collaboration from Sundial Protocol and advisory input from Fallen Icarus.
