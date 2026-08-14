@@ -22,6 +22,7 @@ This repository is the primary implementation home for technical outputs defined
 | Technical collaborator | **Sundial** |
 | Technical advisor | **Fallen Icarus (Rusty)** |
 | Treasury custody | Independent **3-of-5 Aurora Treasury multisignature** |
+| Treasury administrators | **James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Kriss Baird** |
 | License | **Apache License 2.0** |
 
 ## Scope
@@ -36,7 +37,7 @@ This repository is the primary implementation home for technical outputs defined
 - **Capital Provider Profile Standard**, **Discovery and Filtering Specification**, and **Reference Query Library**.
 - Developer tooling, reference implementation, integration examples, and operating documentation.
 - An end-to-end testnet technical demonstration.
-- Independent security and legal review of the funded infrastructure.
+- Independent security and legal review of the funded infrastructure, an interim Treasury-use expenditure and reconciliation review after M2, and a final independent Treasury-use audit after M4.
 
 ### Excluded
 
@@ -133,7 +134,7 @@ The demonstration validates infrastructure integration. It does not use Treasury
 | Milestone | Timeline | ADA allocation | Primary outcome |
 | --- | --- | ---: | --- |
 | **M1: Specifications and Architecture** | Month 1 | **150,000** | Core standards and implementation architecture finalized |
-| **M2: Core Build** | Months 2-3 | **350,000** | Discovery, verification, indexing, filtering, and API infrastructure operational on testnet |
+| **M2: Core Build** | Months 2-3 | **350,000** | Discovery, verification, indexing, filtering, and API infrastructure operational on testnet; interim Treasury-use review published |
 | **M3: Integration and Technical Demonstration** | Month 4 | **300,000** | Reference implementation, developer tooling, and complete testnet workflow demonstrated |
 | **M4: Independent Review and Public Release** | Month 5 | **200,000** | Independent review completed and final open-source infrastructure released |
 | **Total** | **Approximately 5 months** | **1,000,000** | |
@@ -152,15 +153,17 @@ These roles form one integrated Aurora implementation. They do not create separa
 
 ## Treasury Governance
 
-The full Treasury allocation is held in one dedicated **3-of-5 Aurora Treasury multisignature**, with all five keys held independently of implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors hold no Treasury signing keys.
+The full Treasury allocation is held in one dedicated **3-of-5 Aurora Treasury multisignature** administered by James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Kriss Baird. All five administrators are independent of the implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors hold no Treasury signing keys.
 
-Further expenditure is conditioned on published milestone evidence and review against the approved completion criteria. Treasury balances and transactions remain publicly auditable. Unspent ADA is returned to the Cardano Treasury if the project terminates under the proposal's conditions.
+Expenditure may progress only within the applicable cumulative milestone ceiling after evidence is published and reviewed by the Aurora Treasury Administrators. The Core Infrastructure Development allocation is monitored against the approved deliverables and milestone outputs, with material changes disclosed through milestone reporting. Use of technical contingency requires written justification, administrator authorization, and disclosure in the next public milestone report; unused contingency remains unspent Treasury ADA.
+
+Independent oversight includes an interim expenditure and reconciliation review after M2 and a final Treasury-use audit after M4. Treasury balances and transactions remain publicly auditable. Unspent ADA is returned to the Cardano Treasury if the project terminates under the proposal's conditions.
 
 Governance details, expenditure ceilings, remediation conditions, and submission requirements are maintained in the [Aurora proposal repository](https://github.com/fairway-global/aurora-proposal).
 
 ## Status
 
-**Proposal-aligned planning.** This repository currently contains the implementation brief for Aurora Treasury Proposal Version 2. Specifications, source code, reference tooling, documentation, and demonstration artifacts will be published against the approved milestone schedule.
+**Proposal-aligned planning.** This repository reflects the latest canonical Aurora Treasury Proposal Version 2. Specifications, source code, reference tooling, documentation, and demonstration artifacts will be published against the approved milestone schedule.
 
 ## License
 
