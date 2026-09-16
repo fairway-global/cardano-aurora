@@ -5,17 +5,18 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-proposal--aligned-lightgrey.svg)](#status)
 
-Aurora is a shared market layer around compatible Cardano lending implementations. It standardizes how credit opportunities and verification references are described, indexes that information through the Aurora Discovery Engine, and exposes open interfaces for applications and capital providers.
+Aurora is a shared market layer around compatible Cardano lending implementations. It standardizes how credit opportunities and verification references are described, indexes that information through the Aurora Discovery Engine, and exposes open interfaces for applications and capital providers. The resulting standards and tooling are intended to become reusable components of Cardano's credit-market stack.
 
 Aurora does not replace lending protocols or control lending activity. The Treasury-funded scope is limited to reusable public infrastructure.
 
 ## Proposal Alignment
 
-This repository is the primary implementation home for technical outputs defined in [Aurora Treasury Proposal Version 2](https://github.com/fairway-global/aurora-proposal).
+This repository is the primary implementation home for technical outputs defined in Aurora Treasury Proposal Version 3. The proposal itself is maintained in the [Aurora proposal repository](https://github.com/fairway-global/aurora-proposal).
 
 | Field | Detail |
 | --- | --- |
-| Treasury request | **1,000,000 ADA** |
+| Proposal version | **3** |
+| Treasury request | **940,000 ADA** |
 | Delivery period | Approximately **5 months** |
 | Delivery plan | **4 implementation milestones** |
 | Lead implementer | **Fairway** |
@@ -34,25 +35,24 @@ This repository is the primary implementation home for technical outputs defined
 - Open-source **Aurora Discovery Engine** for indexing, discovery, filtering, verification-information exposure, and relevant lifecycle visibility.
 - **Open APIs** for compatible applications, analytics services, and capital providers.
 - Published filtering and query capabilities based on open schemas.
-- **Capital Provider Profile Standard**, **Discovery and Filtering Specification**, and **Reference Query Library**.
+- Open-source **Capital Discovery Layer**, including the **Capital Provider Profile Standard**, **Discovery and Filtering Specification**, **Reference Query Library**, Market Discovery API contributions, and lightweight integration artifacts.
 - Developer tooling, reference implementation, integration examples, and operating documentation.
 - An end-to-end testnet technical demonstration.
 - Independent security and legal review of the funded infrastructure, an interim Treasury-use expenditure and reconciliation review after M2, and a final independent Treasury-use audit after M4.
 
-### Excluded
+### Operating Boundaries
 
-Aurora does not:
+Aurora provides market-information, discovery, filtering, and verification infrastructure. It does not:
 
-- originate or underwrite loans;
-- custody or allocate lending capital;
-- decide which opportunities receive funding;
-- operate a proprietary lending marketplace;
-- fund borrower deployment or commercial onboarding;
-- convert ADA or stablecoins;
-- perform fiat settlement, borrower disbursement, loan servicing, or collections; or
-- require a specific lending protocol, identity provider, verification technology, settlement provider, or commercial deployment model.
+- replace the underlying lending protocols or modify their core contracts;
+- originate loans, custody lending capital, or execute funding and settlement;
+- decide which opportunities receive capital or make lending, underwriting, or capital-allocation decisions;
+- require a single lending protocol, identity provider, credential issuer, proof system, or verification provider;
+- impose one global verification or participation policy;
+- create a proprietary marketplace or capital-allocation system; or
+- perform regulatory enforcement.
 
-Commercial lending and the activity that generates real repayment, default, and underwriting evidence remain outside the Treasury-funded scope.
+Funding and settlement remain functions of the compatible lending infrastructure underlying each opportunity. Participants remain responsible for their own legal, regulatory, risk, eligibility, and operational requirements.
 
 ## Architecture
 
@@ -71,7 +71,7 @@ flowchart LR
 
 ### Processing Flow
 
-1. **Origination.** An originator creates a Loan Request UTxO through a compatible Cardano lending implementation.
+1. **Origination.** An originator creates a Loan Request UTxO through compatible Cardano lending infrastructure. In the proposal, this means a UTxO representing an individual funding request or credit opportunity.
 2. **Metadata.** The originator may attach standardized market information and verification references. The proposal describes an enriched object as a "colored" Loan Request UTxO; this is a descriptive term, not a new ledger primitive.
 3. **Indexing and verification.** The Aurora Discovery Engine identifies compatible UTxOs, organizes their metadata, and exposes relevant verification information.
 4. **Discovery and evaluation.** Applications and capital providers query and filter opportunities according to their own requirements.
@@ -103,7 +103,9 @@ Aurora exposes information for evaluation but does not make lending, underwritin
 |   |-- src/
 |   |-- api/
 |   `-- deployment/
-|-- reference-query-library/
+|-- capital-discovery/
+|   |-- reference-query-library/
+|   `-- integration-artifacts/
 |-- developer-tooling/
 |-- reference-implementation/
 |-- examples/
@@ -127,17 +129,29 @@ The testnet demonstration will show that a compatible Loan Request UTxO can be:
 6. associated with verification information that can be evaluated through the Verification Framework; and
 7. consumed by a compatible reference application or query workflow.
 
-The demonstration validates infrastructure integration. It does not use Treasury-funded loan capital and does not require borrower deployment, fiat settlement, or commercial loan execution.
+The demonstration validates the end-to-end operation and interoperability of the infrastructure, from Loan Request UTxO creation and metadata through discovery, filtering, verification, and application-level consumption.
+
+## Budget Allocation
+
+The Version 3 Treasury request is allocated to public deliverables rather than separate organizational work packages. Approximate USD values use the proposal's reference price of **US$0.20 per ADA**.
+
+| Allocation | ADA | Approx. USD | Primary scope |
+| --- | ---: | ---: | --- |
+| **Core Infrastructure Development** | **800,000** | **$160,000** | Standards, Discovery Engine, APIs, filtering, tooling, reference implementation, Capital Discovery Layer, demonstration, documentation, and delivery |
+| **Review, Hosting & Technical Contingency** | **140,000** | **$28,000** | Independent review, Treasury-use oversight, hosting, technical operations, and approved contingency |
+| **Total** | **940,000** | **$188,000** | |
+
+The second allocation comprises approximately **60,000 ADA** for independent security and legal review, **20,000 ADA** for independent Treasury-use audit and oversight, **30,000 ADA** for hosting and technical operations, and **30,000 ADA** for technical contingency.
 
 ## Milestone Roadmap
 
 | Milestone | Timeline | ADA allocation | Primary outcome |
 | --- | --- | ---: | --- |
-| **M1: Specifications and Architecture** | Month 1 | **150,000** | Core standards and implementation architecture finalized |
-| **M2: Core Build** | Months 2-3 | **350,000** | Discovery, verification, indexing, filtering, and API infrastructure operational on testnet; interim Treasury-use review published |
-| **M3: Integration and Technical Demonstration** | Month 4 | **300,000** | Reference implementation, developer tooling, and complete testnet workflow demonstrated |
-| **M4: Independent Review and Public Release** | Month 5 | **200,000** | Independent review completed and final open-source infrastructure released |
-| **Total** | **Approximately 5 months** | **1,000,000** | |
+| **M1: Specifications and Architecture** | Month 1 | **140,000** | Core standards and implementation architecture finalized |
+| **M2: Core Build** | Months 2-3 | **320,000** | Discovery, verification, indexing, filtering, and API infrastructure operational on testnet; interim Treasury-use review published |
+| **M3: Integration and Technical Demonstration** | Month 4 | **290,000** | Reference implementation, developer tooling, and complete testnet workflow demonstrated |
+| **M4: Independent Review and Public Release** | Month 5 | **190,000** | Independent review completed and final open-source infrastructure released |
+| **Total** | **Approximately 5 months** | **940,000** | |
 
 Public milestone evidence and progress reports will link to the relevant specifications, source code, APIs, tooling, documentation, demonstrations, and review materials.
 
@@ -153,9 +167,9 @@ These roles form one integrated Aurora implementation. They do not create separa
 
 ## Treasury Governance
 
-The full Treasury allocation is held in one dedicated **3-of-5 Aurora Treasury multisignature** administered by James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Kriss Baird. All five administrators are independent of the implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors hold no Treasury signing keys.
+The full **940,000 ADA** Treasury allocation is held in one dedicated **3-of-5 Aurora Treasury multisignature** administered by James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Kriss Baird. All five administrators are independent of the implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors hold no Treasury signing keys.
 
-Expenditure may progress only within the applicable cumulative milestone ceiling after evidence is published and reviewed by the Aurora Treasury Administrators. The Core Infrastructure Development allocation is monitored against the approved deliverables and milestone outputs, with material changes disclosed through milestone reporting. Use of technical contingency requires written justification, administrator authorization, and disclosure in the next public milestone report; unused contingency remains unspent Treasury ADA.
+Expenditure may progress only after milestone evidence is published and reviewed by the Aurora Treasury Administrators. The cumulative ceilings are **140,000 ADA** at commencement, **460,000 ADA** after M1 approval, **750,000 ADA** after M2 approval, and **940,000 ADA** after M3 approval. The Core Infrastructure Development allocation is monitored against the approved deliverables and milestone outputs, with material resource-allocation changes disclosed through milestone reporting. Use of technical contingency requires written justification, administrator authorization, and disclosure in the next public milestone report; unused contingency remains unspent Treasury ADA.
 
 Independent oversight includes an interim expenditure and reconciliation review after M2 and a final Treasury-use audit after M4. Treasury balances and transactions remain publicly auditable. Unspent ADA is returned to the Cardano Treasury if the project terminates under the proposal's conditions.
 
@@ -163,7 +177,7 @@ Governance details, expenditure ceilings, remediation conditions, and submission
 
 ## Status
 
-**Proposal-aligned planning.** This repository reflects the latest canonical Aurora Treasury Proposal Version 2. Specifications, source code, reference tooling, documentation, and demonstration artifacts will be published against the approved milestone schedule.
+**Proposal-aligned planning.** This repository reflects Aurora Treasury Proposal Version 3. Specifications, source code, reference tooling, documentation, and demonstration artifacts will be published against the approved milestone schedule.
 
 ## License
 
@@ -171,9 +185,7 @@ Unless stated otherwise, this repository is licensed under the [Apache License 2
 
 ## Links
 
-- [Aurora Treasury Proposal](https://github.com/fairway-global/aurora-proposal)
-- [Full Proposal](https://github.com/fairway-global/aurora-proposal/blob/main/proposal.md)
-- [Reviewer Brief](https://github.com/fairway-global/aurora-proposal/blob/main/docs/00-reviewer-brief.md)
+- [Aurora Proposal Repository](https://github.com/fairway-global/aurora-proposal)
 - [Fairway](https://fairway.global)
 
 ---
