@@ -1,4 +1,4 @@
-# Aurora Metadata Standard and Discovery Engine
+# Cardano-Aurora Metadata Standard and Discovery Engine
 
 > Open, protocol-independent infrastructure for discovering, filtering, verifying, and evaluating Cardano credit opportunities.
 
