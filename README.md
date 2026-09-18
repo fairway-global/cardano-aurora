@@ -1,13 +1,12 @@
-# Cardano-Aurora Metadata Standard and Discovery Engine
+# Aurora — Open Credit-Market Infrastructure for Cardano
 
-> Open, protocol-independent infrastructure for discovering, filtering, verifying, and evaluating Cardano credit opportunities.
+**Open infrastructure for bringing real credit markets to Cardano.**
 
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-proposal--aligned-lightgrey.svg)](#status)
+Aurora is shared market infrastructure for Cardano credit markets. It provides the standards, software and developer tooling required to make independent credit opportunities discoverable, filterable, verifiable and accessible through common interfaces.
 
-Aurora is a shared market layer around compatible Cardano lending implementations. It standardizes how credit opportunities and verification references are described, indexes that information through the Aurora Discovery Engine, and exposes open interfaces for applications and capital providers. The resulting standards and tooling are intended to become reusable components of Cardano's credit-market stack.
+The infrastructure combines standardized metadata, verification, discovery and indexing, filtering and query tooling, open APIs, capital-provider standards and developer tooling around compatible Cardano lending implementations.
 
-Aurora does not replace lending protocols or control lending activity. The Treasury-funded scope is limited to reusable public infrastructure.
+The resulting components are designed as reusable parts of Cardano's credit-market stack and will be released as open-source infrastructure under Apache License 2.0.
 
 ## Proposal Alignment
 
@@ -28,31 +27,26 @@ This repository is the primary implementation home for technical outputs defined
 
 ## Scope
 
-### Included
+### Core Public Outputs
 
-- Versioned **Metadata Standard** for Aurora-compatible credit opportunities and associated metadata references.
-- Extensible **Verification Framework** for institutional, eligibility, compliance, and other proof-based information.
-- Open-source **Aurora Discovery Engine** for indexing, discovery, filtering, verification-information exposure, and relevant lifecycle visibility.
-- **Open APIs** for compatible applications, analytics services, and capital providers.
-- Published filtering and query capabilities based on open schemas.
-- Open-source **Capital Discovery Layer**, including the **Capital Provider Profile Standard**, **Discovery and Filtering Specification**, **Reference Query Library**, Market Discovery API contributions, and lightweight integration artifacts.
-- Developer tooling, reference implementation, integration examples, and operating documentation.
-- An end-to-end testnet technical demonstration.
-- Independent security and legal review of the funded infrastructure, an interim Treasury-use expenditure and reconciliation review after M2, and a final independent Treasury-use audit after M4.
+- **Metadata Standard** — a shared machine-readable structure for describing Aurora-compatible credit opportunities and associated metadata references.
+- **Verification Framework** — an extensible framework for associating and evaluating institutional, eligibility, compliance and other proof-based information across different verification systems.
+- **Aurora Discovery Engine** — open-source infrastructure for indexing compatible Loan Request UTxOs and making independent credit opportunities searchable across Cardano.
+- **Filtering & Query Tooling** — common filtering and query capabilities for finding opportunities according to jurisdiction, duration, asset, ticket size, verification requirements and other standardized attributes.
+- **Open APIs** — public interfaces for querying credit opportunities, metadata, verification information and relevant lifecycle data.
+- **Capital Provider Profile + Reference Query Library** — open standards and reference queries for representing capital-provider requirements and translating them into reusable market queries.
+- **Developer Tooling + Reference Implementation** — tooling, integration examples and reference code demonstrating how third-party applications can integrate the complete Aurora infrastructure flow.
+- **Documentation + Independent Review** — technical and operating documentation backed by independent security and legal review.
 
-### Operating Boundaries
+Delivery culminates in an **end-to-end testnet demonstration and public open-source release under Apache License 2.0**.
 
-Aurora provides market-information, discovery, filtering, and verification infrastructure. It does not:
+The Capital Provider Profile Standard, Reference Query Library, Discovery and Filtering Specification, Market Discovery API contributions and related integration artifacts collectively form Aurora's **Capital Discovery Layer**, developed with selected technical contributions from Sundial.
 
-- replace the underlying lending protocols or modify their core contracts;
-- originate loans, custody lending capital, or execute funding and settlement;
-- decide which opportunities receive capital or make lending, underwriting, or capital-allocation decisions;
-- require a single lending protocol, identity provider, credential issuer, proof system, or verification provider;
-- impose one global verification or participation policy;
-- create a proprietary marketplace or capital-allocation system; or
-- perform regulatory enforcement.
+### Operating Model
 
-Funding and settlement remain functions of the compatible lending infrastructure underlying each opportunity. Participants remain responsible for their own legal, regulatory, risk, eligibility, and operational requirements.
+Aurora operates as shared market infrastructure around compatible Cardano lending implementations. Lending protocols retain their own contract logic, origination, underwriting, funding and settlement processes, while Aurora provides common standards and infrastructure for market information, discovery, filtering and verification.
+
+Participation is optional and protocol-independent. Different lending implementations, verification systems and capital providers can use the infrastructure according to their own technical, legal, risk and eligibility requirements.
 
 ## Architecture
 
@@ -64,7 +58,7 @@ flowchart LR
     B --> C["Standardized metadata and verification references"]
     V["Verification providers and proof systems"] --> C
     C --> D["Aurora Discovery Engine"]
-    D --> E["Open discovery and filtering APIs"]
+    D --> E["Open APIs + Filtering & Query Tooling"]
     P["Capital-provider profiles and reference queries"] --> E
     E --> F["Applications and capital providers"]
 ```
@@ -82,13 +76,12 @@ Aurora exposes information for evaluation but does not make lending, underwritin
 
 ## Design Principles
 
-- **Protocol independent.** Compatible lending implementations can use Aurora without adopting a single lending protocol.
-- **Optional.** Underlying lending contracts remain independently usable without Aurora metadata.
-- **Technology agnostic.** The Verification Framework does not require one identity provider, credential issuer, proof system, or verification provider.
-- **Privacy compatible.** Proofs, attestations, selective disclosure, and other verification references can be used without placing sensitive source data on Cardano.
-- **Extensible.** Versioned schemas support evolving market information, verification methods, jurisdictions, and participant requirements.
-- **Independently operable.** Public source, deployment instructions, and open interfaces allow third parties to operate the infrastructure without a Fairway-hosted service.
-- **Decision neutral.** Participants retain responsibility for their own legal, regulatory, eligibility, risk, and allocation requirements.
+- **Protocol-independent.** Compatible lending implementations can integrate Aurora while retaining their own lending architecture.
+- **Optional.** Aurora extends compatible credit markets without becoming a requirement of the underlying lending contracts.
+- **Extensible.** Versioned schemas support evolving market information, jurisdictions, verification methods and participant requirements.
+- **Verification-agnostic.** Different credential systems, proof systems, attestations and verification providers can coexist through common interfaces.
+- **Privacy-compatible.** Verification references can support proofs, attestations and selective disclosure without requiring sensitive source data on Cardano.
+- **Independently operable.** Open-source software, published interfaces and deployment documentation allow third parties to operate and extend the infrastructure.
 
 ## Planned Repository Structure
 
@@ -114,6 +107,8 @@ Aurora exposes information for evaluation but does not make lending, underwritin
 |-- LICENSE
 `-- README.md
 ```
+
+The planned `capital-discovery/` area groups the Reference Query Library and related integration artifacts within Aurora; it is not a standalone product.
 
 The structure may evolve during M1 architecture work. Any change must preserve the approved public deliverables, protocol independence, and third-party operability.
 
@@ -177,7 +172,9 @@ Governance details, expenditure ceilings, remediation conditions, and submission
 
 ## Status
 
-**Proposal-aligned planning.** This repository reflects Aurora Treasury Proposal Version 3. Specifications, source code, reference tooling, documentation, and demonstration artifacts will be published against the approved milestone schedule.
+**Aurora is currently being developed as open-source Cardano credit-market infrastructure.**
+
+This repository is the implementation home for the standards, software, tooling and technical demonstration defined in Aurora Treasury Proposal Version 3. Public outputs will be published here against the approved milestone schedule.
 
 ## License
 
