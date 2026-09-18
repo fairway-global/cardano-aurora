@@ -10,11 +10,10 @@ The resulting components are designed as reusable parts of Cardano's credit-mark
 
 ## Proposal Alignment
 
-This repository is the primary implementation home for technical outputs defined in Aurora Treasury Proposal Version 3. The proposal itself is maintained in the [Aurora proposal repository](https://github.com/fairway-global/aurora-proposal).
+This repository is the primary implementation home for technical outputs defined in the Aurora Treasury Proposal. The proposal itself is maintained in the [Aurora proposal repository](https://github.com/fairway-global/aurora-proposal).
 
 | Field | Detail |
 | --- | --- |
-| Proposal version | **3** |
 | Treasury request | **940,000 ADA** |
 | Delivery period | Approximately **5 months** |
 | Delivery plan | **4 implementation milestones** |
@@ -128,7 +127,7 @@ The demonstration validates the end-to-end operation and interoperability of the
 
 ## Budget Allocation
 
-The Version 3 Treasury request is allocated to public deliverables rather than separate organizational work packages. Approximate USD values use the proposal's reference price of **US$0.20 per ADA**.
+The Treasury request is allocated to public deliverables rather than separate organizational work packages. Approximate USD values use the proposal's reference price of **US$0.20 per ADA**.
 
 | Allocation | ADA | Approx. USD | Primary scope |
 | --- | ---: | ---: | --- |
@@ -174,7 +173,7 @@ Governance details, expenditure ceilings, remediation conditions, and submission
 
 **Aurora is currently being developed as open-source Cardano credit-market infrastructure.**
 
-This repository is the implementation home for the standards, software, tooling and technical demonstration defined in Aurora Treasury Proposal Version 3. Public outputs will be published here against the approved milestone schedule.
+This repository is the implementation home for the standards, software, tooling and technical demonstration defined in the Aurora Treasury Proposal. Public outputs will be published here against the approved milestone schedule.
 
 ## License
 
