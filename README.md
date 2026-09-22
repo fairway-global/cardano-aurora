@@ -171,7 +171,7 @@ Governance details, expenditure ceilings, remediation conditions, and submission
 
 ## Status
 
-**Aurora is currently being developed as open-source Cardano credit-market infrastructure.**
+Aurora is ready to begin development as open-source Cardano credit-market infrastructure. Treasury-funded implementation has not started and will begin only after approval and enactment of the Treasury Withdrawal governance action and receipt of funds.
 
 This repository is the implementation home for the standards, software, tooling and technical demonstration defined in the Aurora Treasury Proposal. Public outputs will be published here against the approved milestone schedule.
 
