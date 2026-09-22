@@ -161,7 +161,7 @@ These roles form one integrated Aurora implementation. They do not create separa
 
 ## Treasury Governance
 
-The full **940,000 ADA** Treasury allocation is held in one dedicated **3-of-5 Aurora Treasury multisignature** administered by James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Kriss Baird. All five administrators are independent of the implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors hold no Treasury signing keys.
+The full 940,000 ADA Treasury allocation will be received into one dedicated **3-of-5 Aurora Treasury multisignature** administered by James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Kriss Baird. All five administrators are independent of the implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors hold no Treasury signing keys.
 
 Expenditure may progress only after milestone evidence is published and reviewed by the Aurora Treasury Administrators. The cumulative ceilings are **140,000 ADA** at commencement, **460,000 ADA** after M1 approval, **750,000 ADA** after M2 approval, and **940,000 ADA** after M3 approval. The Core Infrastructure Development allocation is monitored against the approved deliverables and milestone outputs, with material resource-allocation changes disclosed through milestone reporting. Use of technical contingency requires written justification, administrator authorization, and disclosure in the next public milestone report; unused contingency remains unspent Treasury ADA.
 
