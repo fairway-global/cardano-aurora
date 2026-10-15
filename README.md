@@ -2,7 +2,7 @@
 
 **Open infrastructure for bringing real credit markets to Cardano.**
 
-Aurora is shared market infrastructure for Cardano credit markets. It provides the standards, software and developer tooling required to make independent credit opportunities discoverable, filterable, verifiable and accessible through common interfaces.
+Aurora is proposed shared market infrastructure for Cardano credit markets. It will provide the standards, software and developer tooling required to make independent credit opportunities discoverable, filterable, verifiable and accessible through common interfaces.
 
 The infrastructure combines standardized metadata, verification, discovery and indexing, filtering and query tooling, open APIs, capital-provider standards and developer tooling around compatible Cardano lending implementations.
 
@@ -11,6 +11,8 @@ The resulting components are designed as reusable parts of Cardano's credit-mark
 ## Proposal Alignment
 
 This repository is the primary implementation home for technical outputs defined in the Aurora Treasury Proposal. The proposal itself is maintained in the [Aurora proposal repository](https://github.com/fairway-global/aurora-proposal).
+
+The architecture, capabilities and milestones below describe the proposed implementation, not already delivered software. Treasury-funded development has not started and is subject to approval and enactment of the Treasury Withdrawal governance action and receipt of the approved funds.
 
 | Field | Detail |
 | --- | --- |
@@ -21,7 +23,7 @@ This repository is the primary implementation home for technical outputs defined
 | Technical collaborator | **Sundial** |
 | Technical advisor | **Fallen Icarus (Rusty)** |
 | Treasury custody | Independent **3-of-5 Aurora Treasury multisignature** |
-| Treasury administrators | **James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Eddie D** |
+| Proposed Treasury administrators | **James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Eddie D** |
 | License | **Apache License 2.0** |
 
 ## Scope
@@ -161,7 +163,7 @@ These roles form one integrated Aurora implementation. They do not create separa
 
 ## Treasury Governance
 
-The full 940,000 ADA Treasury allocation will be received into one dedicated **3-of-5 Aurora Treasury multisignature** administered by James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Eddie D. All five administrators are independent of the implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors hold no Treasury signing keys.
+If the Treasury Withdrawal is approved and enacted, the full **940,000 ADA** allocation will be received into one dedicated **3-of-5 Aurora Treasury multisignature**. The proposed administrators are James "Blockjock" Meidinger, Christian Taylor, Elder Millennial, Wilco USDM, and Eddie D, all independent of the implementation participants. Fairway, Sundial, Fallen Icarus, and other implementation contributors will hold no Treasury signing keys.
 
 Expenditure may progress only after milestone evidence is published and reviewed by the Aurora Treasury Administrators. The cumulative ceilings are **140,000 ADA** at commencement, **460,000 ADA** after M1 approval, **750,000 ADA** after M2 approval, and **940,000 ADA** after M3 approval. The Core Infrastructure Development allocation is monitored against the approved deliverables and milestone outputs, with material resource-allocation changes disclosed through milestone reporting. Use of technical contingency requires written justification, administrator authorization, and disclosure in the next public milestone report; unused contingency remains unspent Treasury ADA.
 
@@ -171,9 +173,11 @@ Governance details, expenditure ceilings, remediation conditions, and submission
 
 ## Status
 
-Aurora is ready to begin development as open-source Cardano credit-market infrastructure. Treasury-funded implementation has not started and will begin only after approval and enactment of the Treasury Withdrawal governance action and receipt of funds.
+**Aurora is ready to begin the proposed development of open-source Cardano credit-market infrastructure, subject to Treasury funding approval and receipt.**
 
-This repository is the implementation home for the standards, software, tooling and technical demonstration defined in the Aurora Treasury Proposal. Public outputs will be published here against the approved milestone schedule.
+Treasury-funded implementation has not started. Development will begin only after approval and enactment of the Treasury Withdrawal governance action and receipt of the approved funds.
+
+This repository is the planned implementation home for the standards, software, tooling and technical demonstration defined in the Aurora Treasury Proposal. If funded, public outputs will be published here according to the milestone schedule approved through governance. Current repository materials describe the proposed scope and delivery plan.
 
 ## License
 
@@ -186,4 +190,4 @@ Unless stated otherwise, this repository is licensed under the [Apache License 2
 
 ---
 
-Built by [Fairway Oy](https://fairway.global) with technical collaboration from Sundial Protocol and advisory input from Fallen Icarus.
+Proposed implementation led by [Fairway Oy](https://fairway.global), with technical collaboration from Sundial Protocol and advisory input from Fallen Icarus.
